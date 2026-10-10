@@ -46,6 +46,17 @@ def compter():
     conn.close()
     return total
 
+def derniers_souvenirs(n=20):
+    """Retourne les n derniers souvenirs, du plus ancien au plus récent."""
+    conn = sqlite3.connect(CHEMIN_DB)
+    curseur = conn.cursor()
+    curseur.execute(
+        "SELECT role, contenu FROM souvenirs ORDER BY id DESC LIMIT ?",
+        (n,)
+    )
+    lignes = curseur.fetchall()
+    conn.close()
+    return list(reversed(lignes))
 
 if __name__ == "__main__":
     initialiser()
