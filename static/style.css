@@ -64,9 +64,9 @@ body {
 .liane-gauche { left: 0; }
 .liane-droite { right: 0; transform: scaleX(-1); }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
     .liane { display: none; }
-    .ornement-haut { opacity: 0.75; height: 180px; }
+    .ornement-haut { opacity: 0.6; height: 150px; }
 }
 
 /* --- Header --- */
@@ -268,10 +268,31 @@ button:active { transform: scale(0.98); }
     .message.toi { margin-left: 1rem; }
     .message.alice { margin-right: 1rem; }
     details.pensee { margin-right: 1rem; }
-    form { padding: 1rem; }
-    button { padding: 0.9rem 1.2rem; }
-    #formulaire #bouton-terminer { padding: 0.9rem 0.8rem; font-size: 0.62rem; letter-spacing: 0.08em; }
-    #saisie { padding: 0.9rem 0.9rem; font-size: 0.95rem; }
+
+    form {
+        padding: 0.75rem 0.5rem;
+        gap: 0.4rem;
+    }
+
+    #saisie {
+        min-width: 0;
+        padding: 0.7rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    #formulaire #bouton-terminer {
+        min-width: 0;
+        padding: 0.7rem 0.6rem;
+        font-size: 0.58rem;
+        letter-spacing: 0.05em;
+    }
+
+    #formulaire button[type="submit"] {
+        min-width: 0;
+        padding: 0.7rem 0.9rem;
+        font-size: 0.7rem;
+        letter-spacing: 0.06em;
+    }
 }
 
 /* --- Bouton terminer dans la barre du bas --- */
