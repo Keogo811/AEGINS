@@ -6,3 +6,4 @@ venv/
 *.log
 data/
 *.db
+groq_key.py

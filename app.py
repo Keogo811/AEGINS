@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import memoire
 import alice
+import llm
 
 app = Flask(__name__)
 
@@ -10,7 +11,8 @@ memoire.initialiser()
 @app.route("/")
 def accueil():
     total = memoire.compter()
-    return render_template("index.html", total=total)
+    backend = llm.backend_actuel()
+    return render_template("index.html", total=total, backend=backend)
 
 
 @app.route("/parler", methods=["POST"])
@@ -42,6 +44,19 @@ def terminer():
         return jsonify({"ok": True, "message": "Alice a écrit dans son journal."})
     except Exception as e:
         return jsonify({"ok": False, "message": f"Erreur : {e}"}), 500
+
+
+@app.route("/basculer", methods=["POST"])
+def basculer():
+    data = request.get_json() or {}
+    nouveau = (data.get("backend") or "").strip().lower()
+    if nouveau not in ("ollama", "groq"):
+        return jsonify({"ok": False, "erreur": "backend invalide"}), 400
+    try:
+        llm.definir_backend(nouveau)
+        return jsonify({"ok": True, "backend": llm.backend_actuel()})
+    except Exception as e:
+        return jsonify({"ok": False, "erreur": str(e)}), 500
 
 
 if __name__ == "__main__":

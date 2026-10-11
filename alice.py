@@ -1,11 +1,10 @@
 import os
 import re
-import ollama
+import llm
 import memoire
 import journal
+import config
 
-MODEL = "huihui_ai/qwen3-abliterated:8b"
-MODEL_RAPIDE = "huihui_ai/qwen3-abliterated:4b"
 NB_SOUVENIRS = 20
 
 CHEMIN_IDENTITE = os.path.join(
@@ -104,7 +103,6 @@ def construire_historique(n=NB_SOUVENIRS):
         role_llm = "user" if role == "toi" else "assistant"
         historique.append({"role": role_llm, "content": contenu})
 
-    # Marqueur de fin d'historique : tout ce qui suit est la session actuelle.
     historique.append({
         "role": "system",
         "content": (
@@ -120,23 +118,21 @@ def demander_a_alice(message, historique):
     messages = [{"role": "system", "content": construire_prompt_systeme()}]
     messages.extend(historique)
     messages.append({"role": "user", "content": message})
-    reponse = ollama.chat(model=MODEL, messages=messages, think=True)
-    contenu = reponse["message"].get("content", "")
-    pensee = reponse["message"].get("thinking", "")
+    contenu, pensee = llm.appeler_llm(messages, modele_principal=True)
     return contenu, pensee
 
 
 def evaluer_importance(msg_toi, msg_alice):
     texte = f"Toi : {msg_toi}\nAlice : {msg_alice}"
     try:
-        reponse = ollama.chat(
-            model=MODEL_RAPIDE,
-            messages=[
-                {"role": "system", "content": PROMPT_IMPORTANCE},
-                {"role": "user", "content": texte}
-            ]
-        )
-        brut = reponse["message"]["content"].strip()
+        messages = [
+            {"role": "system", "content": PROMPT_IMPORTANCE},
+            {"role": "user", "content": texte}
+        ]
+        contenu, _ = llm.appeler_llm(messages, modele_principal=False)
+        brut = contenu.strip()
+        if not brut:
+            return 1
         chiffre = int(brut[0])
         if chiffre not in (1, 2, 3):
             return 1
@@ -146,7 +142,6 @@ def evaluer_importance(msg_toi, msg_alice):
 
 
 def ecrire_journal_du_jour():
-    """Demande à Alice d'écrire une entrée de journal, puis la sauvegarde."""
     historique = construire_historique()
     messages = [{"role": "system", "content": PROMPT_JOURNAL}]
     messages.extend(historique)
@@ -155,8 +150,8 @@ def ecrire_journal_du_jour():
         "content": "(écris ton entrée de journal maintenant, pour toi)"
     })
     try:
-        reponse = ollama.chat(model=MODEL, messages=messages)
-        texte = reponse["message"].get("content", "").strip()
+        contenu, _ = llm.appeler_llm(messages, modele_principal=True)
+        texte = contenu.strip()
         if texte:
             journal.ecrire(texte)
             print("\n[Alice a écrit dans son journal.]")
@@ -169,6 +164,7 @@ if __name__ == "__main__":
     total = memoire.compter()
     print(f"Alice est prête. Elle a {total} souvenirs en mémoire.")
     print(f"Entrées de journal actuelles : {journal.compter_entrees()}.")
+    print(f"Backend LLM actif : {llm.backend_actuel()}.")
     if not lire_identite():
         print("⚠ identite.md est introuvable ou vide.")
     print("Tape 'quit' pour quitter.\n")

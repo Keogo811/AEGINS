@@ -321,3 +321,53 @@ button:active { transform: scale(0.98); }
     cursor: wait;
     opacity: 0.5;
 }
+
+/* --- Sélecteur de cerveau --- */
+header .cerveau {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+}
+
+header .cerveau-label {
+    color: var(--texte-doux);
+    font-style: italic;
+    margin-right: 0.4rem;
+    letter-spacing: 0.05em;
+}
+
+header .cerveau-bouton {
+    padding: 0.4rem 1rem;
+    background: transparent;
+    color: var(--texte-doux);
+    border: 1px solid rgba(201, 169, 97, 0.35);
+    border-radius: 999px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: all 0.2s;
+}
+
+header .cerveau-bouton:hover:not(:disabled) {
+    opacity: 1;
+    border-color: var(--or);
+    color: var(--or-clair);
+}
+
+header .cerveau-bouton.actif {
+    opacity: 1;
+    background: rgba(124, 199, 234, 0.12);
+    border-color: var(--alice-bleu);
+    color: var(--alice-bleu);
+}
+
+header .cerveau-bouton:disabled {
+    cursor: wait;
+    opacity: 0.4;
+}

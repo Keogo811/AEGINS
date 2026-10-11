@@ -258,6 +258,11 @@
 <header>
     <h1>Alice</h1>
     <p class="souvenirs">Souvenirs en mémoire : {{ total }}</p>
+    <div class="cerveau">
+        <span class="cerveau-label">Cerveau :</span>
+        <button type="button" class="cerveau-bouton" data-backend="ollama">Local</button>
+        <button type="button" class="cerveau-bouton" data-backend="groq">Groq</button>
+    </div>
 </header>
 
 <main id="conversation"></main>
@@ -354,6 +359,41 @@
             boutonTerminer.textContent = 'Erreur';
             boutonTerminer.disabled = false;
         }
+    });
+</script>
+
+<script>
+    const backendActuel = "{{ backend }}";
+    const boutonsCerveau = document.querySelectorAll('.cerveau-bouton');
+
+    function majBoutons(actif) {
+        boutonsCerveau.forEach(b => {
+            b.classList.toggle('actif', b.dataset.backend === actif);
+        });
+    }
+
+    majBoutons(backendActuel);
+
+    boutonsCerveau.forEach(b => {
+        b.addEventListener('click', async () => {
+            const cible = b.dataset.backend;
+            boutonsCerveau.forEach(x => x.disabled = true);
+            try {
+                const r = await fetch('/basculer', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({backend: cible})
+                });
+                const data = await r.json();
+                if (data.ok) {
+                    majBoutons(data.backend);
+                }
+            } catch (err) {
+                console.error(err);
+            } finally {
+                boutonsCerveau.forEach(x => x.disabled = false);
+            }
+        });
     });
 </script>
 
