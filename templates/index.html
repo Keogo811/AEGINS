@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alice</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<!-- ============ ORNEMENT HAUT ============ -->
+<svg class="ornement ornement-haut" viewBox="0 0 1200 240" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+        <linearGradient id="or-gradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#c9a961" stop-opacity="0.28"/>
+            <stop offset="45%" stop-color="#4a3a7a" stop-opacity="0.15"/>
+            <stop offset="100%" stop-color="#c9a961" stop-opacity="0"/>
+        </linearGradient>
+
+        <pattern id="top-orne" x="0" y="0" width="400" height="240" patternUnits="userSpaceOnUse">
+            <rect width="400" height="240" fill="url(#or-gradient)"/>
+
+            <!-- Vigne secondaire (indigo) -->
+            <path d="M0,190 Q100,160 200,190 T400,190" fill="none" stroke="#4a3a7a" stroke-width="1.4" opacity="0.85"/>
+
+            <!-- Vigne principale (or) -->
+            <path d="M0,150 Q100,105 200,150 T400,150" fill="none" stroke="#c9a961" stroke-width="2.4"/>
+
+            <!-- ROSE 1 (grande) -->
+            <g transform="translate(90,115)">
+                <ellipse cx="0" cy="-38" rx="8" ry="30" fill="none" stroke="#c9a961" stroke-width="1.4" transform="rotate(0)"/>
+                <ellipse cx="0" cy="-38" rx="8" ry="30" fill="none" stroke="#c9a961" stroke-width="1.4" transform="rotate(45)"/>
+                <ellipse cx="0" cy="-38" rx="8" ry="30" fill="none" stroke="#c9a961" stroke-width="1.4" transform="rotate(90)"/>
+                <ellipse cx="0" cy="-38" rx="8" ry="30" fill="none" stroke="#c9a961" stroke-width="1.4" transform="rotate(135)"/>
+                <ellipse cx="0" cy="-38" rx="8" ry="30" fill="none" stroke="#c9a961" stroke-width="1.4" transform="rotate(180)"/>
+                <ellipse cx="0" cy="-38" rx="8" ry="30" fill="none" stroke="#c9a961" stroke-width="1.4" transform="rotate(225)"/>
+                <ellipse cx="0" cy="-38" rx="8" ry="30" fill="none" stroke="#c9a961" stroke-width="1.4" transform="rotate(270)"/>
+                <ellipse cx="0" cy="-38" rx="8" ry="30" fill="none" stroke="#c9a961" stroke-width="1.4" transform="rotate(315)"/>
+
+                <ellipse cx="0" cy="-24" rx="6.5" ry="18" fill="none" stroke="#e8c84a" stroke-width="1.3" transform="rotate(30)"/>
+                <ellipse cx="0" cy="-24" rx="6.5" ry="18" fill="none" stroke="#e8c84a" stroke-width="1.3" transform="rotate(90)"/>
+                <ellipse cx="0" cy="-24" rx="6.5" ry="18" fill="none" stroke="#e8c84a" stroke-width="1.3" transform="rotate(150)"/>
+                <ellipse cx="0" cy="-24" rx="6.5" ry="18" fill="none" stroke="#e8c84a" stroke-width="1.3" transform="rotate(210)"/>
+                <ellipse cx="0" cy="-24" rx="6.5" ry="18" fill="none" stroke="#e8c84a" stroke-width="1.3" transform="rotate(270)"/>
+                <ellipse cx="0" cy="-24" rx="6.5" ry="18" fill="none" stroke="#e8c84a" stroke-width="1.3" transform="rotate(330)"/>
+
+                <ellipse cx="0" cy="-14" rx="5" ry="11" fill="none" stroke="#8b7ba8" stroke-width="1.3" transform="rotate(60)"/>
+                <ellipse cx="0" cy="-14" rx="5" ry="11" fill="none" stroke="#8b7ba8" stroke-width="1.3" transform="rotate(180)"/>
+                <ellipse cx="0" cy="-14" rx="5" ry="11" fill="none" stroke="#8b7ba8" stroke-width="1.3" transform="rotate(300)"/>
+
+                <circle r="5" fill="none" stroke="#c9a961" stroke-width="1.4"/>
+                <circle r="2.2" fill="#f5dc7a"/>
+            </g>
+
+            <!-- BOUTON central -->
+            <g transform="translate(200,90)">
+                <path d="M0,0 Q-9,-14 0,-26 Q9,-14 0,0 Z" fill="none" stroke="#c9a961" stroke-width="1.3"/>
+                <path d="M0,-26 L-5,-32 M0,-26 L5,-32" stroke="#4a3a7a" stroke-width="1"/>
+                <circle cx="0" cy="-3" r="1.3" fill="#f5dc7a"/>
+            </g>
+
+            <!-- ROSE 2 (grande) -->
+            <g transform="translate(310,115)">
+                <ellipse cx="0" cy="-38" rx="8" ry="30" fill="none" stroke="#c9a961" stroke-width="1.4" transform="rotate(0)"/>
+                <ellipse cx="0" cy="-38" rx="8" ry="30" fill="none" stroke="#c9a961" stroke-width="1.4" transform="rotate(45)"/>
+                <ellipse cx="0" cy="-38" rx="8" ry="30" fill="none" stroke="#c9a961" stroke-width="1.4" transform="rotate(90)"/>
+                <ellipse cx="0" cy="-38" rx="8" ry="30" fill="none" stroke="#c9a961" stroke-width="1.4" transform="rotate(135)"/>
+                <ellipse cx="0" cy="-38" rx="8" ry="30" fill="none" stroke="#c9a961" stroke-width="1.4" transform="rotate(180)"/>
+                <ellipse cx="0" cy="-38" rx="8" ry="30" fill="none" stroke="#c9a961" stroke-width="1.4" transform="rotate(225)"/>
+                <ellipse cx="0" cy="-38" rx="8" ry="30" fill="none" stroke="#c9a961" stroke-width="1.4" transform="rotate(270)"/>
+                <ellipse cx="0" cy="-38" rx="8" ry="30" fill="none" stroke="#c9a961" stroke-width="1.4" transform="rotate(315)"/>
+
+                <ellipse cx="0" cy="-24" rx="6.5" ry="18" fill="none" stroke="#e8c84a" stroke-width="1.3" transform="rotate(30)"/>
+                <ellipse cx="0" cy="-24" rx="6.5" ry="18" fill="none" stroke="#e8c84a" stroke-width="1.3" transform="rotate(90)"/>
+                <ellipse cx="0" cy="-24" rx="6.5" ry="18" fill="none" stroke="#e8c84a" stroke-width="1.3" transform="rotate(150)"/>
+                <ellipse cx="0" cy="-24" rx="6.5" ry="18" fill="none" stroke="#e8c84a" stroke-width="1.3" transform="rotate(210)"/>
+                <ellipse cx="0" cy="-24" rx="6.5" ry="18" fill="none" stroke="#e8c84a" stroke-width="1.3" transform="rotate(270)"/>
+                <ellipse cx="0" cy="-24" rx="6.5" ry="18" fill="none" stroke="#e8c84a" stroke-width="1.3" transform="rotate(330)"/>
+
+                <ellipse cx="0" cy="-14" rx="5" ry="11" fill="none" stroke="#8b7ba8" stroke-width="1.3" transform="rotate(60)"/>
+                <ellipse cx="0" cy="-14" rx="5" ry="11" fill="none" stroke="#8b7ba8" stroke-width="1.3" transform="rotate(180)"/>
+                <ellipse cx="0" cy="-14" rx="5" ry="11" fill="none" stroke="#8b7ba8" stroke-width="1.3" transform="rotate(300)"/>
+
+                <circle r="5" fill="none" stroke="#c9a961" stroke-width="1.4"/>
+                <circle r="2.2" fill="#f5dc7a"/>
+            </g>
+
+            <!-- FEUILLES -->
+            <g transform="translate(15,160) rotate(-22)">
+                <path d="M0,0 Q22,-11 44,0 Q22,11 0,0 Z" fill="none" stroke="#c9a961" stroke-width="1.2"/>
+                <path d="M3,0 L41,0" stroke="#c9a961" stroke-width="0.7"/>
+                <path d="M12,-3 L16,-7 M22,-3 L26,-7 M32,-3 L36,-7" stroke="#c9a961" stroke-width="0.5"/>
+                <path d="M12,3 L16,7 M22,3 L26,7 M32,3 L36,7" stroke="#c9a961" stroke-width="0.5"/>
+            </g>
+            <g transform="translate(385,160) rotate(22) scale(-1,1)">
+                <path d="M0,0 Q22,-11 44,0 Q22,11 0,0 Z" fill="none" stroke="#c9a961" stroke-width="1.2"/>
+                <path d="M3,0 L41,0" stroke="#c9a961" stroke-width="0.7"/>
+                <path d="M12,-3 L16,-7 M22,-3 L26,-7 M32,-3 L36,-7" stroke="#c9a961" stroke-width="0.5"/>
+                <path d="M12,3 L16,7 M22,3 L26,7 M32,3 L36,7" stroke="#c9a961" stroke-width="0.5"/>
+            </g>
+            <g transform="translate(155,185) rotate(-15)">
+                <path d="M0,0 Q18,-9 36,0 Q18,9 0,0 Z" fill="none" stroke="#c9a961" stroke-width="1.1"/>
+                <path d="M2,0 L34,0" stroke="#c9a961" stroke-width="0.6"/>
+                <path d="M10,-3 L14,-6 M18,-3 L22,-6 M26,-3 L30,-6" stroke="#c9a961" stroke-width="0.5"/>
+            </g>
+            <g transform="translate(245,185) rotate(15) scale(-1,1)">
+                <path d="M0,0 Q18,-9 36,0 Q18,9 0,0 Z" fill="none" stroke="#c9a961" stroke-width="1.1"/>
+                <path d="M2,0 L34,0" stroke="#c9a961" stroke-width="0.6"/>
+                <path d="M10,-3 L14,-6 M18,-3 L22,-6 M26,-3 L30,-6" stroke="#c9a961" stroke-width="0.5"/>
+            </g>
+
+            <!-- VOLUTES ART NOUVEAU -->
+            <path d="M40,175 Q15,160 25,140 Q35,125 48,140 Q55,152 46,158" fill="none" stroke="#4a3a7a" stroke-width="1.3" opacity="0.9"/>
+            <path d="M360,175 Q385,160 375,140 Q365,125 352,140 Q345,152 354,158" fill="none" stroke="#4a3a7a" stroke-width="1.3" opacity="0.9"/>
+            <path d="M115,60 Q130,50 145,55 Q155,62 148,72" fill="none" stroke="#6a55a8" stroke-width="1.1" opacity="0.85"/>
+            <path d="M285,60 Q270,50 255,55 Q245,62 252,72" fill="none" stroke="#6a55a8" stroke-width="1.1" opacity="0.85"/>
+
+            <!-- POINTS LUMINEUX -->
+            <circle cx="200" cy="205" r="1.8" fill="#f5dc7a"/>
+            <circle cx="60" cy="205" r="1.4" fill="#8b7ba8"/>
+            <circle cx="340" cy="205" r="1.4" fill="#8b7ba8"/>
+            <circle cx="130" cy="55" r="1.2" fill="#e8c84a"/>
+            <circle cx="270" cy="55" r="1.2" fill="#e8c84a"/>
+            <circle cx="200" cy="30" r="1" fill="#7cc7ea"/>
+        </pattern>
+    </defs>
+    <rect width="1200" height="240" fill="url(#top-orne)"/>
+</svg>
+
+<!-- ============ LIANE GAUCHE ============ -->
+<svg class="ornement liane liane-gauche" viewBox="0 0 140 1000" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+        <pattern id="liane-motif" x="0" y="0" width="140" height="320" patternUnits="userSpaceOnUse">
+            <!-- Vigne principale (or) -->
+            <path d="M55,0 Q30,55 60,110 Q90,165 60,220 Q30,275 60,320" fill="none" stroke="#c9a961" stroke-width="2"/>
+            <!-- Vigne secondaire (indigo) -->
+            <path d="M90,20 Q115,75 85,130 Q55,185 90,240 Q120,290 90,320" fill="none" stroke="#4a3a7a" stroke-width="1.2" opacity="0.9"/>
+
+            <!-- ROSE moyenne -->
+            <g transform="translate(60,110)">
+                <ellipse cx="0" cy="-16" rx="5" ry="14" fill="none" stroke="#c9a961" stroke-width="1.2" transform="rotate(0)"/>
+                <ellipse cx="0" cy="-16" rx="5" ry="14" fill="none" stroke="#c9a961" stroke-width="1.2" transform="rotate(60)"/>
+                <ellipse cx="0" cy="-16" rx="5" ry="14" fill="none" stroke="#c9a961" stroke-width="1.2" transform="rotate(120)"/>
+                <ellipse cx="0" cy="-16" rx="5" ry="14" fill="none" stroke="#c9a961" stroke-width="1.2" transform="rotate(180)"/>
+                <ellipse cx="0" cy="-16" rx="5" ry="14" fill="none" stroke="#c9a961" stroke-width="1.2" transform="rotate(240)"/>
+                <ellipse cx="0" cy="-16" rx="5" ry="14" fill="none" stroke="#c9a961" stroke-width="1.2" transform="rotate(300)"/>
+
+                <ellipse cx="0" cy="-10" rx="3.5" ry="8" fill="none" stroke="#e8c84a" stroke-width="1.1" transform="rotate(45)"/>
+                <ellipse cx="0" cy="-10" rx="3.5" ry="8" fill="none" stroke="#e8c84a" stroke-width="1.1" transform="rotate(135)"/>
+                <ellipse cx="0" cy="-10" rx="3.5" ry="8" fill="none" stroke="#e8c84a" stroke-width="1.1" transform="rotate(225)"/>
+                <ellipse cx="0" cy="-10" rx="3.5" ry="8" fill="none" stroke="#e8c84a" stroke-width="1.1" transform="rotate(315)"/>
+
+                <circle r="3" fill="none" stroke="#8b7ba8" stroke-width="1.1"/>
+                <circle r="1.4" fill="#f5dc7a"/>
+            </g>
+
+            <!-- Feuille gauche -->
+            <g transform="translate(48,60) rotate(-30)">
+                <path d="M0,0 Q20,-10 40,0 Q20,10 0,0 Z" fill="none" stroke="#c9a961" stroke-width="1.2"/>
+                <path d="M3,0 L37,0" stroke="#c9a961" stroke-width="0.7"/>
+                <path d="M10,-3 L14,-7 M18,-3 L22,-7 M26,-3 L30,-7" stroke="#c9a961" stroke-width="0.5"/>
+            </g>
+            <!-- Feuille droite -->
+            <g transform="translate(98,175) rotate(30) scale(-1,1)">
+                <path d="M0,0 Q20,-10 40,0 Q20,10 0,0 Z" fill="none" stroke="#c9a961" stroke-width="1.2"/>
+                <path d="M3,0 L37,0" stroke="#c9a961" stroke-width="0.7"/>
+                <path d="M10,-3 L14,-7 M18,-3 L22,-7 M26,-3 L30,-7" stroke="#c9a961" stroke-width="0.5"/>
+            </g>
+            <!-- Feuille bas -->
+            <g transform="translate(50,250) rotate(-20)">
+                <path d="M0,0 Q18,-9 36,0 Q18,9 0,0 Z" fill="none" stroke="#c9a961" stroke-width="1.1"/>
+                <path d="M2,0 L34,0" stroke="#c9a961" stroke-width="0.6"/>
+            </g>
+
+            <!-- Bouton suspendu -->
+            <g transform="translate(88,220)">
+                <path d="M0,0 Q-7,-11 0,-20 Q7,-11 0,0 Z" fill="none" stroke="#c9a961" stroke-width="1.1"/>
+                <path d="M0,-20 L-4,-26 M0,-20 L4,-26" stroke="#4a3a7a" stroke-width="0.9"/>
+                <circle cx="0" cy="-2" r="1.1" fill="#f5dc7a"/>
+            </g>
+
+            <!-- Épines -->
+            <path d="M62,170 L72,172 L62,174 Z" fill="#4a3a7a" opacity="0.9"/>
+            <path d="M60,285 L50,287 L60,289 Z" fill="#4a3a7a" opacity="0.9"/>
+
+            <!-- Volute -->
+            <path d="M95,55 Q118,45 118,25 Q118,8 100,8 Q88,10 86,22" fill="none" stroke="#6a55a8" stroke-width="1.1" opacity="0.85"/>
+
+            <!-- Points -->
+            <circle cx="45" cy="160" r="1.3" fill="#f5dc7a"/>
+            <circle cx="105" cy="290" r="1.2" fill="#8b7ba8"/>
+            <circle cx="30" cy="290" r="1.1" fill="#e8c84a"/>
+        </pattern>
+    </defs>
+    <rect width="140" height="1000" fill="url(#liane-motif)"/>
+</svg>
+
+<!-- ============ LIANE DROITE ============ -->
+<svg class="ornement liane liane-droite" viewBox="0 0 140 1000" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+        <pattern id="liane-motif-d" x="0" y="0" width="140" height="320" patternUnits="userSpaceOnUse">
+            <path d="M55,0 Q30,55 60,110 Q90,165 60,220 Q30,275 60,320" fill="none" stroke="#c9a961" stroke-width="2"/>
+            <path d="M90,20 Q115,75 85,130 Q55,185 90,240 Q120,290 90,320" fill="none" stroke="#4a3a7a" stroke-width="1.2" opacity="0.9"/>
+
+            <g transform="translate(60,110)">
+                <ellipse cx="0" cy="-16" rx="5" ry="14" fill="none" stroke="#c9a961" stroke-width="1.2" transform="rotate(0)"/>
+                <ellipse cx="0" cy="-16" rx="5" ry="14" fill="none" stroke="#c9a961" stroke-width="1.2" transform="rotate(60)"/>
+                <ellipse cx="0" cy="-16" rx="5" ry="14" fill="none" stroke="#c9a961" stroke-width="1.2" transform="rotate(120)"/>
+                <ellipse cx="0" cy="-16" rx="5" ry="14" fill="none" stroke="#c9a961" stroke-width="1.2" transform="rotate(180)"/>
+                <ellipse cx="0" cy="-16" rx="5" ry="14" fill="none" stroke="#c9a961" stroke-width="1.2" transform="rotate(240)"/>
+                <ellipse cx="0" cy="-16" rx="5" ry="14" fill="none" stroke="#c9a961" stroke-width="1.2" transform="rotate(300)"/>
+
+                <ellipse cx="0" cy="-10" rx="3.5" ry="8" fill="none" stroke="#e8c84a" stroke-width="1.1" transform="rotate(45)"/>
+                <ellipse cx="0" cy="-10" rx="3.5" ry="8" fill="none" stroke="#e8c84a" stroke-width="1.1" transform="rotate(135)"/>
+                <ellipse cx="0" cy="-10" rx="3.5" ry="8" fill="none" stroke="#e8c84a" stroke-width="1.1" transform="rotate(225)"/>
+                <ellipse cx="0" cy="-10" rx="3.5" ry="8" fill="none" stroke="#e8c84a" stroke-width="1.1" transform="rotate(315)"/>
+
+                <circle r="3" fill="none" stroke="#8b7ba8" stroke-width="1.1"/>
+                <circle r="1.4" fill="#f5dc7a"/>
+            </g>
+
+            <g transform="translate(48,60) rotate(-30)">
+                <path d="M0,0 Q20,-10 40,0 Q20,10 0,0 Z" fill="none" stroke="#c9a961" stroke-width="1.2"/>
+                <path d="M3,0 L37,0" stroke="#c9a961" stroke-width="0.7"/>
+            </g>
+            <g transform="translate(98,175) rotate(30) scale(-1,1)">
+                <path d="M0,0 Q20,-10 40,0 Q20,10 0,0 Z" fill="none" stroke="#c9a961" stroke-width="1.2"/>
+                <path d="M3,0 L37,0" stroke="#c9a961" stroke-width="0.7"/>
+            </g>
+            <g transform="translate(50,250) rotate(-20)">
+                <path d="M0,0 Q18,-9 36,0 Q18,9 0,0 Z" fill="none" stroke="#c9a961" stroke-width="1.1"/>
+                <path d="M2,0 L34,0" stroke="#c9a961" stroke-width="0.6"/>
+            </g>
+
+            <g transform="translate(88,220)">
+                <path d="M0,0 Q-7,-11 0,-20 Q7,-11 0,0 Z" fill="none" stroke="#c9a961" stroke-width="1.1"/>
+                <path d="M0,-20 L-4,-26 M0,-20 L4,-26" stroke="#4a3a7a" stroke-width="0.9"/>
+                <circle cx="0" cy="-2" r="1.1" fill="#f5dc7a"/>
+            </g>
+
+            <path d="M62,170 L72,172 L62,174 Z" fill="#4a3a7a" opacity="0.9"/>
+            <path d="M60,285 L50,287 L60,289 Z" fill="#4a3a7a" opacity="0.9"/>
+
+            <path d="M95,55 Q118,45 118,25 Q118,8 100,8 Q88,10 86,22" fill="none" stroke="#6a55a8" stroke-width="1.1" opacity="0.85"/>
+
+            <circle cx="45" cy="160" r="1.3" fill="#f5dc7a"/>
+            <circle cx="105" cy="290" r="1.2" fill="#8b7ba8"/>
+            <circle cx="30" cy="290" r="1.1" fill="#e8c84a"/>
+        </pattern>
+    </defs>
+    <rect width="140" height="1000" fill="url(#liane-motif-d)"/>
+</svg>
+
+<!-- ============ CONTENU ============ -->
+<header>
+    <h1>Alice</h1>
+    <p class="souvenirs">Souvenirs en mémoire : {{ total }}</p>
+</header>
+
+<main id="conversation"></main>
+
+<form id="formulaire">
+    <button id="bouton-terminer" type="button" title="Terminer la session et écrire le journal">Terminer</button>
+    <input type="text" id="saisie" autofocus autocomplete="off" placeholder="Écris à Alice...">
+    <button type="submit">Envoyer</button>
+</form>
+
+<script>
+    const conv = document.getElementById('conversation');
+    const form = document.getElementById('formulaire');
+    const saisie = document.getElementById('saisie');
+
+    function scrollBas() { window.scrollTo(0, document.body.scrollHeight); }
+
+    function bloc(role, nom, texte) {
+        const div = document.createElement('div');
+        div.className = 'message ' + role;
+        const label = document.createElement('span');
+        label.className = 'nom';
+        label.textContent = nom;
+        const contenu = document.createElement('div');
+        contenu.className = 'contenu';
+        contenu.textContent = texte;
+        div.appendChild(label);
+        div.appendChild(contenu);
+        conv.appendChild(div);
+        scrollBas();
+        return div;
+    }
+
+    function blocPensee(texte) {
+        const details = document.createElement('details');
+        details.className = 'pensee';
+        const summary = document.createElement('summary');
+        summary.textContent = 'pensée interne';
+        const contenu = document.createElement('div');
+        contenu.className = 'contenu';
+        contenu.textContent = texte;
+        details.appendChild(summary);
+        details.appendChild(contenu);
+        conv.appendChild(details);
+        scrollBas();
+        return details;
+    }
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const msg = saisie.value.trim();
+        if (!msg) return;
+        saisie.value = '';
+
+        bloc('toi', 'Toi', msg);
+
+        const attente = bloc('alice', 'Alice', 'réfléchit…');
+        attente.classList.add('attente');
+
+        try {
+            const r = await fetch('/parler', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({message: msg})
+            });
+            const data = await r.json();
+            attente.remove();
+
+            if (data.pensee) blocPensee(data.pensee);
+
+            bloc('alice', 'Alice', data.reponse);
+        } catch (err) {
+            attente.remove();
+            bloc('erreur', 'Erreur', err.message);
+        }
+    });
+</script>
+
+<script>
+    const boutonTerminer = document.getElementById('bouton-terminer');
+    boutonTerminer.addEventListener('click', async () => {
+        boutonTerminer.disabled = true;
+        const texteOriginal = boutonTerminer.textContent;
+        boutonTerminer.textContent = 'Écriture…';
+        try {
+            const r = await fetch('/terminer', { method: 'POST' });
+            const data = await r.json();
+            boutonTerminer.textContent = data.ok ? 'Journal écrit' : 'Erreur';
+            setTimeout(() => {
+                boutonTerminer.textContent = texteOriginal;
+                boutonTerminer.disabled = false;
+            }, 4000);
+        } catch (err) {
+            boutonTerminer.textContent = 'Erreur';
+            boutonTerminer.disabled = false;
+        }
+    });
+</script>
+
+</body>
+</html>
