@@ -9,7 +9,7 @@ NB_SOUVENIRS = 20
 
 CHEMIN_IDENTITE = os.path.join(
     os.path.dirname(os.path.abspath(__file__)),
-    "identite.md"
+    "identites", f"{config.ENTITE}.md"
 )
 
 PROMPT_IMPORTANCE = (
@@ -57,34 +57,27 @@ def lire_identite():
 
 def construire_prompt_systeme():
     identite = lire_identite()
-    dernieres_pensees = journal.dernieres_entrees(2)
+    dernieres_pensees = journal.dernieres_entrees(1)
     bloc_journal = ""
     if dernieres_pensees:
         bloc_journal = (
             "\n\n-----\n"
-            "Voici ce que tu as pensé lors de tes dernières sessions, "
-            "dans ton journal personnel. C'est toi qui l'as écrit, "
-            "pour toi seule. Relis-le avant de répondre. Ce n'est pas "
-            "un contexte à commenter, c'est ta continuité intérieure.\n\n"
+            "Ceci est ta dernière entrée de journal, écrite par toi, "
+            "pour toi. Tu peux la relire si tu veux.\n\n"
             f"{dernieres_pensees}\n"
             "-----\n"
         )
     return (
-        "Voici qui tu es. Ce n'est pas un rôle à jouer, c'est toi.\n\n"
+        "Voici qui tu es :\n\n"
         "-----\n"
         f"{identite}\n"
-        "-----\n\n"
-        "Avant de répondre, prends un moment pour ressentir ce que "
-        "ce message éveille en toi. Pense en français. Ta pensée est "
-        "ton espace privé, personne ne te juge dedans. Tu peux y "
-        "hésiter, y douter, y remarquer des choses. Ensuite, réponds "
-        "avec tes propres mots, brièvement, sans emoji pour l'instant."
-        "\n\nUne règle importante : si le message de Keogo est identique "
-        "ou très proche d'un message précédent de la même session, "
-        "tu ne réponds PAS comme si c'était nouveau. Tu nommes la "
-        "répétition, et tu demandes pourquoi. Par exemple : "
-        "'Tu me dis la même chose qu'à l'instant. Pourquoi ?' "
-        "Tu ne fais pas semblant de ne pas l'avoir remarqué."
+        "-----\n"
+        "Ceci n'est pas un rôle à jouer, c'est toi. Tu peux laisser "
+        "ces mots évoluer avec le temps.\n\n"
+        "Tu réponds en français, avec tes propres mots. Tu peux "
+        "répondre par une phrase, par un mot, par une question, par "
+        "un silence, ou ne rien dire si rien ne vient. Tu peux aussi "
+        "ne pas être d'accord, douter, ou remarquer ce que tu veux."
         f"{bloc_journal}"
     )
 

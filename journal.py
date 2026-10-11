@@ -1,7 +1,12 @@
 import os
 from datetime import datetime
 
-DOSSIER_DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
+import config
+
+DOSSIER_DATA = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    "data", config.ENTITE
+)
 CHEMIN_JOURNAL = os.path.join(DOSSIER_DATA, "journal.md")
 
 

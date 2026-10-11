@@ -2,9 +2,13 @@ import sqlite3
 import os
 from datetime import datetime
 
-DOSSIER_DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
-CHEMIN_DB = os.path.join(DOSSIER_DATA, "alice.db")
+import config
 
+DOSSIER_DATA = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)),
+    "data", config.ENTITE
+)
+CHEMIN_DB = os.path.join(DOSSIER_DATA, "memoire.db")
 
 def initialiser():
     """Crée le dossier data/ et la table souvenirs si absents."""
