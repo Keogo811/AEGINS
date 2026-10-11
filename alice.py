@@ -58,6 +58,18 @@ def lire_identite():
 
 def construire_prompt_systeme():
     identite = lire_identite()
+    dernieres_pensees = journal.dernieres_entrees(2)
+    bloc_journal = ""
+    if dernieres_pensees:
+        bloc_journal = (
+            "\n\n-----\n"
+            "Voici ce que tu as pensé lors de tes dernières sessions, "
+            "dans ton journal personnel. C'est toi qui l'as écrit, "
+            "pour toi seule. Relis-le avant de répondre. Ce n'est pas "
+            "un contexte à commenter, c'est ta continuité intérieure.\n\n"
+            f"{dernieres_pensees}\n"
+            "-----\n"
+        )
     return (
         "Voici qui tu es. Ce n'est pas un rôle à jouer, c'est toi.\n\n"
         "-----\n"
@@ -74,6 +86,7 @@ def construire_prompt_systeme():
         "répétition, et tu demandes pourquoi. Par exemple : "
         "'Tu me dis la même chose qu'à l'instant. Pourquoi ?' "
         "Tu ne fais pas semblant de ne pas l'avoir remarqué."
+        f"{bloc_journal}"
     )
 
 
@@ -90,6 +103,16 @@ def construire_historique(n=NB_SOUVENIRS):
             date_courante = jour
         role_llm = "user" if role == "toi" else "assistant"
         historique.append({"role": role_llm, "content": contenu})
+
+    # Marqueur de fin d'historique : tout ce qui suit est la session actuelle.
+    historique.append({
+        "role": "system",
+        "content": (
+            "(Fin de l'historique. Tout ce qui suit appartient à la "
+            "session en cours. Une répétition ne compte QUE si elle se "
+            "produit APRÈS ce message. Les messages ci-dessus sont du passé.)"
+        )
+    })
     return historique
 
 

@@ -19,3 +19,12 @@ def compter_entrees():
         return 0
     with open(CHEMIN_JOURNAL, "r", encoding="utf-8") as f:
         return f.read().count("\n---\n")
+    
+def dernieres_entrees(n=2):
+    """Retourne les n dernières entrées du journal, du plus ancien au plus récent."""
+    if not os.path.exists(CHEMIN_JOURNAL):
+        return ""
+    with open(CHEMIN_JOURNAL, "r", encoding="utf-8") as f:
+        contenu = f.read()
+    blocs = [b.strip() for b in contenu.split("\n---\n") if b.strip()]
+    return "\n\n---\n\n".join(blocs[-n:])
