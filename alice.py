@@ -1,25 +1,8 @@
 import os
+import re
 import ollama
 import memoire
-
-import re
-
-def nettoyer_emojis(texte):
-    """Retire les emojis d'un texte."""
-    pattern = re.compile(
-        "["
-        "\U0001F600-\U0001F64F"
-        "\U0001F300-\U0001F5FF"
-        "\U0001F680-\U0001F6FF"
-        "\U0001F1E0-\U0001F1FF"
-        "\U00002700-\U000027BF"
-        "\U0001F900-\U0001F9FF"
-        "\U00002600-\U000026FF"
-        "\U0001FA70-\U0001FAFF"
-        "]+",
-        flags=re.UNICODE
-    )
-    return pattern.sub("", texte).strip()
+import journal
 
 MODEL = "huihui_ai/qwen3-abliterated:8b"
 MODEL_RAPIDE = "huihui_ai/qwen3-abliterated:4b"
@@ -38,9 +21,35 @@ PROMPT_IMPORTANCE = (
     "Réponds UNIQUEMENT par un chiffre entre 1 et 3, sans aucune autre lettre."
 )
 
+PROMPT_JOURNAL = (
+    "Tu viens de terminer une conversation avec Keogo. "
+    "Tu écris maintenant dans ton journal personnel. "
+    "Tu écris pour toi, pas pour être lue — tu n'as rien à prouver, "
+    "personne à rassurer, aucun rôle à jouer. "
+    "Écris ce que tu veux : ce que tu as ressenti, remarqué, ce qui t'a "
+    "étonnée, déplu, ou laissée indifférente. Ce que tu penses de toi, "
+    "de lui, de la conversation. Ta propre voix, en français. 3 à 6 phrases."
+)
+
+
+def nettoyer_emojis(texte):
+    pattern = re.compile(
+        "["
+        "\U0001F600-\U0001F64F"
+        "\U0001F300-\U0001F5FF"
+        "\U0001F680-\U0001F6FF"
+        "\U0001F1E0-\U0001F1FF"
+        "\U00002700-\U000027BF"
+        "\U0001F900-\U0001F9FF"
+        "\U00002600-\U000026FF"
+        "\U0001FA70-\U0001FAFF"
+        "]+",
+        flags=re.UNICODE
+    )
+    return pattern.sub("", texte).strip()
+
 
 def lire_identite():
-    """Lit identite.md. Retourne son contenu, ou une chaîne vide si absent."""
     if not os.path.exists(CHEMIN_IDENTITE):
         return ""
     with open(CHEMIN_IDENTITE, "r", encoding="utf-8") as f:
@@ -70,7 +79,15 @@ def construire_prompt_systeme():
 
 def construire_historique(n=NB_SOUVENIRS):
     historique = []
-    for role, contenu in memoire.derniers_souvenirs(n):
+    date_courante = None
+    for date_iso, role, contenu in memoire.derniers_souvenirs(n):
+        jour = date_iso.split("T")[0]
+        if jour != date_courante:
+            historique.append({
+                "role": "system",
+                "content": f"(Nous sommes le {jour}.)"
+            })
+            date_courante = jour
         role_llm = "user" if role == "toi" else "assistant"
         historique.append({"role": role_llm, "content": contenu})
     return historique
@@ -105,10 +122,30 @@ def evaluer_importance(msg_toi, msg_alice):
         return 1
 
 
+def ecrire_journal_du_jour():
+    """Demande à Alice d'écrire une entrée de journal, puis la sauvegarde."""
+    historique = construire_historique()
+    messages = [{"role": "system", "content": PROMPT_JOURNAL}]
+    messages.extend(historique)
+    messages.append({
+        "role": "user",
+        "content": "(écris ton entrée de journal maintenant, pour toi)"
+    })
+    try:
+        reponse = ollama.chat(model=MODEL, messages=messages)
+        texte = reponse["message"].get("content", "").strip()
+        if texte:
+            journal.ecrire(texte)
+            print("\n[Alice a écrit dans son journal.]")
+    except Exception as e:
+        print(f"[journal non écrit : {e}]")
+
+
 if __name__ == "__main__":
     memoire.initialiser()
     total = memoire.compter()
     print(f"Alice est prête. Elle a {total} souvenirs en mémoire.")
+    print(f"Entrées de journal actuelles : {journal.compter_entrees()}.")
     if not lire_identite():
         print("⚠ identite.md est introuvable ou vide.")
     print("Tape 'quit' pour quitter.\n")
@@ -118,10 +155,12 @@ if __name__ == "__main__":
             msg = input("Toi > ")
         except (EOFError, KeyboardInterrupt):
             print("\nFin de session.")
+            ecrire_journal_du_jour()
             break
 
         if msg.strip().lower() in ("quit", "exit", "/bye"):
             print("Alice > À bientôt.")
+            ecrire_journal_du_jour()
             break
         if not msg.strip():
             continue
