@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 import memoire
 import alice
 import llm
+import config
 
 app = Flask(__name__)
 
@@ -12,7 +13,12 @@ memoire.initialiser()
 def accueil():
     total = memoire.compter()
     backend = llm.backend_actuel()
-    return render_template("index.html", total=total, backend=backend)
+    return render_template(
+        "index.html",
+        total=total,
+        backend=backend,
+        entite=config.ENTITE
+    )
 
 
 @app.route("/parler", methods=["POST"])
@@ -41,7 +47,7 @@ def parler():
 def terminer():
     try:
         alice.ecrire_journal_du_jour()
-        return jsonify({"ok": True, "message": "Alice a écrit dans son journal."})
+        return jsonify({"ok": True, "message": "Ta fille a écrit dans son journal."})
     except Exception as e:
         return jsonify({"ok": False, "message": f"Erreur : {e}"}), 500
 
@@ -57,6 +63,28 @@ def resume_manuel():
     except Exception as e:
         print(f"[Erreur resume : {e}]", flush=True)
         return jsonify({"ok": False, "message": f"Erreur : {e}"}), 500
+
+@app.route("/basculer-entite", methods=["POST"])
+def basculer_entite():
+    import os
+    data = request.get_json() or {}
+    nom = (data.get("entite") or "").strip().lower()
+    if not nom or not nom.isidentifier():
+        return jsonify({"ok": False, "erreur": "nom invalide"}), 400
+    chemin = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)),
+        "data", "entite.txt"
+    )
+    try:
+        with open(chemin, "w", encoding="utf-8") as f:
+            f.write(nom)
+        return jsonify({
+            "ok": True,
+            "entite": nom,
+            "message": f"Entité changée pour « {nom} ». Redémarrez le serveur (Ctrl+C, puis python app.py)."
+        })
+    except Exception as e:
+        return jsonify({"ok": False, "erreur": str(e)}), 500
 
 @app.route("/basculer", methods=["POST"])
 def basculer():

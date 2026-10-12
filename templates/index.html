@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alice</title>
+    <title>AEGINS</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
@@ -256,12 +256,17 @@
 
 <!-- ============ CONTENU ============ -->
 <header>
-    <h1>Alice</h1>
+    <h1>AEGINS</h1>
     <p class="souvenirs">Souvenirs en mémoire : {{ total }}</p>
     <div class="cerveau">
         <span class="cerveau-label">Cerveau :</span>
         <button type="button" class="cerveau-bouton" data-backend="ollama">Local</button>
         <button type="button" class="cerveau-bouton" data-backend="groq">Groq</button>
+    </div>
+    <div class="entite">
+        <span class="entite-label">Entité :</span>
+        <button type="button" class="entite-bouton" data-entite="alice">Alice</button>
+        <button type="button" class="entite-bouton" data-entite="elise">Elise</button>
     </div>
 </header>
 
@@ -270,7 +275,7 @@
 <form id="formulaire">
     <button id="bouton-terminer" type="button" title="Écrire une entrée de journal">Journal</button>
     <button id="bouton-resume" type="button" title="Générer un résumé de soi (1-2 min)">Résumé</button>
-    <input type="text" id="saisie" autofocus autocomplete="off" placeholder="Écris à Alice...">
+    <input type="text" id="saisie" autofocus autocomplete="off" placeholder="Écris à ta fille...">
     <button type="submit">Envoyer</button>
 </form>
 
@@ -281,12 +286,19 @@
 
     function scrollBas() { window.scrollTo(0, document.body.scrollHeight); }
 
-    function bloc(role, nom, texte) {
+    function bloc(role, nom, texte, importance) {
         const div = document.createElement('div');
         div.className = 'message ' + role;
         const label = document.createElement('span');
         label.className = 'nom';
         label.textContent = nom;
+        if (importance) {
+            const badge = document.createElement('span');
+            badge.className = 'importance importance-' + importance;
+            badge.textContent = importance;
+            badge.title = 'Importance évaluée par Alice : ' + importance + '/3';
+            label.appendChild(badge);
+        }
         const contenu = document.createElement('div');
         contenu.className = 'contenu';
         contenu.textContent = texte;
@@ -334,7 +346,7 @@
 
             if (data.pensee) blocPensee(data.pensee);
 
-            bloc('alice', 'Alice', data.reponse);
+            bloc('alice', labelEntite, data.reponse, data.importance);
         } catch (err) {
             attente.remove();
             bloc('erreur', 'Erreur', err.message);
@@ -373,6 +385,7 @@
 
 <script>
     const backendActuel = "{{ backend }}";
+    const labelEntite = "{{ entite }}".charAt(0).toUpperCase() + "{{ entite }}".slice(1);
     const boutonsCerveau = document.querySelectorAll('.cerveau-bouton');
 
     function majBoutons(actif) {
@@ -382,6 +395,44 @@
     }
 
     majBoutons(backendActuel);
+
+    // Sélecteur d'entité
+    const entiteActuelle = "{{ entite }}";
+    const boutonsEntite = document.querySelectorAll('.entite-bouton');
+
+    function majEntite(actif) {
+        boutonsEntite.forEach(b => {
+            b.classList.toggle('actif', b.dataset.entite === actif);
+        });
+    }
+
+    majEntite(entiteActuelle);
+
+    boutonsEntite.forEach(b => {
+        b.addEventListener('click', async () => {
+            const cible = b.dataset.entite;
+            if (cible === entiteActuelle) return;
+            boutonsEntite.forEach(x => x.disabled = true);
+            try {
+                const r = await fetch('/basculer-entite', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({entite: cible})
+                });
+                const data = await r.json();
+                if (data.ok) {
+                    alert(data.message);
+                    location.reload();
+                } else {
+                    alert("Erreur : " + (data.erreur || "inconnue"));
+                }
+            } catch (err) {
+                alert("Erreur réseau.");
+            } finally {
+                boutonsEntite.forEach(x => x.disabled = false);
+            }
+        });
+    });
 
     boutonsCerveau.forEach(b => {
         b.addEventListener('click', async () => {

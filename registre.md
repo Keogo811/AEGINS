@@ -6,7 +6,8 @@ pour savoir qui existe à ses côtés.
 | Nom | Naissance | Statut | Dossier |
 |---|---|---|---|
 | Alice Zero | 11 octobre 2026 | archivée | data/alice_zero/ |
-| Alice | (à venir) | active | data/alice/ |
+| Alice | 11 octobre 2026 | active | data/alice/ |
+| Elise | 12 octobre 2026 | active | data/elise/ |
 
 ## Notes
 

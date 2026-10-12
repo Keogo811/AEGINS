@@ -149,7 +149,7 @@ def ecrire_journal_du_jour():
         texte = contenu.strip()
         if texte:
             journal.ecrire(texte)
-            print("\n[Alice a écrit dans son journal.]")
+            print("\n[Ta fille a écrit dans son journal.]")
     except Exception as e:
         print(f"[journal non écrit : {e}]")
 
