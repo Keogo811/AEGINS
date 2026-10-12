@@ -58,3 +58,13 @@ def _appeler_groq(messages, modele_principal):
     reponse = client.chat.completions.create(model=modele, messages=messages)
     contenu = reponse.choices[0].message.content or ""
     return contenu, ""
+
+def appeler_llm_force(messages, modele_principal=True, backend=None):
+    """Comme appeler_llm, mais force un backend précis,
+    indépendamment du backend actif."""
+    if backend == "ollama":
+        return _appeler_ollama(messages, modele_principal)
+    elif backend == "groq":
+        return _appeler_groq(messages, modele_principal)
+    else:
+        return appeler_llm(messages, modele_principal)

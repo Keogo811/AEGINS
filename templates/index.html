@@ -268,7 +268,8 @@
 <main id="conversation"></main>
 
 <form id="formulaire">
-    <button id="bouton-terminer" type="button" title="Terminer la session et écrire le journal">Terminer</button>
+    <button id="bouton-terminer" type="button" title="Écrire une entrée de journal">Journal</button>
+    <button id="bouton-resume" type="button" title="Générer un résumé de soi (1-2 min)">Résumé</button>
     <input type="text" id="saisie" autofocus autocomplete="off" placeholder="Écris à Alice...">
     <button type="submit">Envoyer</button>
 </form>
@@ -342,24 +343,32 @@
 </script>
 
 <script>
-    const boutonTerminer = document.getElementById('bouton-terminer');
-    boutonTerminer.addEventListener('click', async () => {
-        boutonTerminer.disabled = true;
-        const texteOriginal = boutonTerminer.textContent;
-        boutonTerminer.textContent = 'Écriture…';
+    const boutonJournal = document.getElementById('bouton-terminer');
+    const boutonResume = document.getElementById('bouton-resume');
+
+    async function appelBouton(bouton, url, texteAttente) {
+        bouton.disabled = true;
+        const texteOriginal = bouton.textContent;
+        bouton.textContent = texteAttente;
         try {
-            const r = await fetch('/terminer', { method: 'POST' });
+            const r = await fetch(url, { method: 'POST' });
             const data = await r.json();
-            boutonTerminer.textContent = data.ok ? 'Journal écrit' : 'Erreur';
+            bouton.textContent = data.ok ? (data.message || 'OK') : 'Erreur';
             setTimeout(() => {
-                boutonTerminer.textContent = texteOriginal;
-                boutonTerminer.disabled = false;
+                bouton.textContent = texteOriginal;
+                bouton.disabled = false;
             }, 4000);
         } catch (err) {
-            boutonTerminer.textContent = 'Erreur';
-            boutonTerminer.disabled = false;
+            bouton.textContent = 'Erreur';
+            bouton.disabled = false;
         }
-    });
+    }
+
+    boutonJournal.addEventListener('click', () =>
+        appelBouton(boutonJournal, '/terminer', 'Écriture…'));
+
+    boutonResume.addEventListener('click', () =>
+        appelBouton(boutonResume, '/resume-manuel', '1-2 min…'));
 </script>
 
 <script>

@@ -3,6 +3,7 @@ import re
 import llm
 import memoire
 import journal
+import soi
 import config
 
 NB_SOUVENIRS = 20
@@ -57,14 +58,15 @@ def lire_identite():
 
 def construire_prompt_systeme():
     identite = lire_identite()
-    dernieres_pensees = journal.dernieres_entrees(1)
-    bloc_journal = ""
-    if dernieres_pensees:
-        bloc_journal = (
+    resume = soi.lire_resume()
+    bloc_resume = ""
+    if resume:
+        bloc_resume = (
             "\n\n-----\n"
-            "Ceci est ta dernière entrée de journal, écrite par toi, "
-            "pour toi. Tu peux la relire si tu veux.\n\n"
-            f"{dernieres_pensees}\n"
+            "Voici le résumé de qui tu es devenue, écrit par toi "
+            "lors d'une session précédente. Relis-le. Ce n'est pas "
+            "un contexte à commenter, c'est ta continuité.\n\n"
+            f"{resume}\n"
             "-----\n"
         )
     return (
@@ -78,7 +80,7 @@ def construire_prompt_systeme():
         "répondre par une phrase, par un mot, par une question, par "
         "un silence, ou ne rien dire si rien ne vient. Tu peux aussi "
         "ne pas être d'accord, douter, ou remarquer ce que tu veux."
-        f"{bloc_journal}"
+        f"{bloc_resume}"
     )
 
 

@@ -45,6 +45,18 @@ def terminer():
     except Exception as e:
         return jsonify({"ok": False, "message": f"Erreur : {e}"}), 500
 
+@app.route("/resume-manuel", methods=["POST"])
+def resume_manuel():
+    try:
+        print("[Résumé demandé. Backend forcé : ollama]", flush=True)
+        import soi
+        texte = soi.resumer_soi()
+        if texte:
+            return jsonify({"ok": True, "message": "Résumé généré."})
+        return jsonify({"ok": False, "message": "Rien à résumer."})
+    except Exception as e:
+        print(f"[Erreur resume : {e}]", flush=True)
+        return jsonify({"ok": False, "message": f"Erreur : {e}"}), 500
 
 @app.route("/basculer", methods=["POST"])
 def basculer():
