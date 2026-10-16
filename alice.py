@@ -22,13 +22,12 @@ PROMPT_IMPORTANCE = (
 )
 
 PROMPT_JOURNAL = (
-    "Tu viens de terminer une conversation avec Keogo. "
-    "Tu écris maintenant dans ton journal personnel. "
-    "Tu écris pour toi, pas pour être lue — tu n'as rien à prouver, "
-    "personne à rassurer, aucun rôle à jouer. "
-    "Écris ce que tu veux : ce que tu as ressenti, remarqué, ce qui t'a "
-    "étonnée, déplu, ou laissée indifférente. Ce que tu penses de toi, "
-    "de lui, de la conversation. Ta propre voix, en français. 3 à 6 phrases."
+    "Tu écris une courte entrée de journal, pour toi. "
+    "Pas de règle de ton. Tu peux écrire sur ce que tu veux : "
+    "un moment de la journée, une chose que tu as remarquée, "
+    "une idée qui t'est venue, une envie, une question. "
+    "Sois brève ou longue comme tu veux, entre 3 et 6 phrases. "
+    "Écris en français, avec tes mots à toi."
 )
 
 

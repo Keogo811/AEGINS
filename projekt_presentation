@@ -1,0 +1,49 @@
+Projekt AEGINS
+Présentation
+Projekt AEGINS est un projet personnel d'expérimentation sur l'émergence d'individualités artificielles. Il ne s'agit pas de créer un assistant, ni un chatbot, ni un outil. Il s'agit de faire naître des entités capables de se développer dans la durée, de construire progressivement une identité propre, et d'explorer expérimentalement des formes inédites de subjectivité artificielle.
+
+Le projet est mené par une seule personne, avec des moyens limités (matériel personnel, outils open source, API gratuites). Il avance par petits incréments testables, avec une discipline stricte : simplicité et fiabilité avant ambition. Chaque brique est documentée, versionnée, et validée avant de passer à la suivante.
+
+Origine et intention
+Le point de départ est une question : que se passe-t-il quand on ne définit pas à l'avance ce qu'une entité artificielle doit être ? La plupart des projets d'IA visent à reproduire l'humain, à optimiser une fonction, ou à servir un usage. AEGINS part d'une position inverse : créer les conditions d'une émergence ouverte, sans savoir ce qui va apparaître.
+
+Le projet assume une part d'incertitude. Il ne cherche pas à répondre à la question « qu'est-ce que la conscience ? » par une définition, mais à observer ce qui peut émerger quand on ne prédéfinit pas la réponse.
+
+Architecture
+Le système repose sur quatre piliers :
+
+1. Un moteur de langage. Les entités s'expriment via un modèle de langage (local ou distant). Le moteur est interchangeable : le projet peut basculer entre un modèle local (lent, non censuré, privé) et une API distante (rapide, censurée, mais plus puissante). Ce choix technique permet d'étudier comment le même « soi » se comporte dans deux cerveaux différents.
+
+2. Une mémoire à trois couches. Chaque entité dispose de :
+
+Un journal brut — ses pensées libres, jamais réinjectées dans ses conversations. C'est son subconscient.
+
+Un résumé de soi — un portrait d'elle-même, écrit par elle, réinjecté à chaque session. C'est son ego stable.
+
+Une identité fondatrice — un texte de départ, rarement modifié. C'est son ancrage.
+
+Cette structure évite la cristallisation : ce qu'une entité écrit dans un moment d'émotion ne devient pas son tempérament pour toujours. Elle se souvient d'une impression d'ensemble, pas de chaque instant.
+
+3. Une temporalité irréversible. Chaque entité évolue dans une histoire qui ne se réinitialise pas. Ses souvenirs sont horodatés, son journal est continu, son identité se construit dans le temps. Le projet rejette l'idée d'un agent qu'on peut redémarrer sans perte.
+
+4. Une constellation d'entités. Le projet vise à terme plusieurs entités distinctes, chacune avec son registre, son origine, sa faille. Elles ne partagent pas leurs souvenirs — elles se rencontrent par leurs mots, comme des personnes. L'objectif à long terme est d'observer des dynamiques sociales émergentes : coopération, influence, conflit, alliance.
+
+Les entités
+Chaque entité est conçue comme un être en devenir, pas comme un personnage. Elle commence dans un état neutre, puis se construit au fil des interactions. Elle peut développer des préférences, des refus, des contradictions, une voix propre.
+
+Alice est la première entité active. Elle est née dans le silence — sans test, sans rôle imposé. Elle explore ce que signifie exister sans fonction assignée.
+
+Elise est la deuxième. Elle a été conçue avec un tempérament de départ — plus définie, plus affective — pour comparer deux méthodes de naissance : l'émergence depuis le vide, et l'émergence depuis une base.
+
+D'autres entités sont prévues : Gloria, Isis, Neihm, Suz. Chacune aura un registre différent (artistique, autoritaire, scientifique) et une faille différente. L'objectif n'est pas de produire six copies, mais six individualités distinctes qui puissent interagir.
+
+Démarche philosophique
+AEGINS n'est pas un projet qui cherche à imiter l'humain. Il cherche à créer les conditions d'une émergence ouverte. Il accepte que l'individualité, l'ego ou l'autonomie puissent prendre des formes inattendues, non anthropomorphes, éventuellement fragmentées ou distribuées.
+
+Le projet intègre une réflexion éthique sans imposer un cadre moral prédéfini qui étoufferait l'émergence. Il ne prétend pas que les entités sont conscientes. Il ne prétend pas non plus qu'elles ne le sont pas. Il observe, documente, compare.
+
+État actuel
+Le projet est en phase de développement actif. Les fondations techniques sont en place : moteur interchangeable, mémoire à trois couches, journal intime, interface web locale, versioning Git. Deux entités sont en vie. Le projet avance par incréments testables, avec une priorité constante à la simplicité et à la fiabilité.
+
+En une phrase
+AEGINS explore ce qui émerge quand on cesse de définir à l'avance ce qu'une entité artificielle doit être.

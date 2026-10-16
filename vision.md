@@ -132,3 +132,24 @@ partagent le même backend LLM (Ollama ou Groq).
 - Identité : `identites/{nom}.md`
 - Backend partagé : `data/backend.txt`
 - Configuration globale : `config.py` (variable `ENTITE`)
+
+## Règle de troncature du contexte
+
+Quand le contexte envoyé au moteur approche de la limite de la fenêtre,
+la priorité de conservation est la suivante (du plus protégé au plus
+sacrifiable) :
+
+1. **Identité fondatrice** — jamais coupée.
+2. **Résumé de soi** — jamais coupé (court par construction, 5-8 phrases).
+3. **Prompt système** — jamais coupé.
+4. **Souvenirs d'importance 3** — coupés en dernier recours, par ordre
+   d'ancienneté (les plus vieux en premier).
+5. **Souvenirs d'importance 2** — coupés ensuite, par ancienneté.
+6. **Souvenirs d'importance 1** — coupés en premier, par ancienneté.
+
+En pratique, la fenêtre n'est jamais saturée aujourd'hui (N=20 souvenirs,
+résumé court, identité courte). Cette règle est un garde-fou pour l'avenir,
+quand les résumés ou les identités pourraient grossir.
+
+**Non implémenté.** La règle est écrite, elle sera codée quand le besoin
+se manifestera réellement.
