@@ -346,6 +346,22 @@
 
             if (data.pensee) blocPensee(data.pensee);
 
+            // Badge sur le message de Keogo (calculé après coup)
+            if (data.importance) {
+                const messagesToi = conv.querySelectorAll('.message.toi');
+                const dernierToi = messagesToi[messagesToi.length - 1];
+                if (dernierToi) {
+                    const nom = dernierToi.querySelector('.nom');
+                    if (nom && !nom.querySelector('.importance')) {
+                        const badge = document.createElement('span');
+                        badge.className = 'importance importance-' + data.importance;
+                        badge.textContent = data.importance;
+                        badge.title = 'Importance évaluée : ' + data.importance + '/3';
+                        nom.appendChild(badge);
+                    }
+                }
+            }
+
             bloc('alice', labelEntite, data.reponse, data.importance);
         } catch (err) {
             attente.remove();

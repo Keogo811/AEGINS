@@ -51,15 +51,21 @@ def compter():
     return total
 
 def derniers_souvenirs(n=20):
-    """Retourne les n derniers souvenirs : (date, role, contenu)."""
+    """Retourne les n souvenirs les plus pertinents, triés par :
+    1. importance décroissante (3 > 2 > 1)
+    2. récence décroissante (id le plus récent en premier)
+    Le résultat final est remis dans l'ordre chronologique
+    (du plus ancien au plus récent) pour le contexte."""
     conn = sqlite3.connect(CHEMIN_DB)
     curseur = conn.cursor()
     curseur.execute(
-        "SELECT date, role, contenu FROM souvenirs ORDER BY id DESC LIMIT ?",
+        "SELECT date, role, contenu FROM souvenirs "
+        "ORDER BY importance DESC, id DESC LIMIT ?",
         (n,)
     )
     lignes = curseur.fetchall()
     conn.close()
+    # Remettre dans l'ordre chronologique pour le contexte
     return list(reversed(lignes))
 
 if __name__ == "__main__":
