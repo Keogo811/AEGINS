@@ -35,6 +35,10 @@ ENTITE = _lire_entite()
 #
 LLM_BACKEND = "ollama"
 
+# Nombre de souvenirs injectés dans le contexte, selon le backend
+OLLAMA_NB_SOUVENIRS = 15
+GROQ_NB_SOUVENIRS = 35
+
 OLLAMA_MODELE_PRINCIPAL = "huihui_ai/qwen3-abliterated:8b"
 OLLAMA_MODELE_RAPIDE = "huihui_ai/qwen3-abliterated:4b"
 

@@ -6,7 +6,7 @@ import journal
 import soi
 import config
 
-NB_SOUVENIRS = 20
+NB_SOUVENIRS = 20  # valeur par défaut, remplacée dynamiquement ci-dessous
 
 CHEMIN_IDENTITE = os.path.join(
     os.path.dirname(os.path.abspath(__file__)),
@@ -83,7 +83,9 @@ def construire_prompt_systeme():
     )
 
 
-def construire_historique(n=NB_SOUVENIRS):
+def construire_historique(n=None):
+    if n is None:
+        n = config.GROQ_NB_SOUVENIRS if llm.backend_actuel() == "groq" else config.OLLAMA_NB_SOUVENIRS
     historique = []
     date_courante = None
     for date_iso, role, contenu in memoire.derniers_souvenirs(n):
