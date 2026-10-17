@@ -6,3 +6,4 @@ venv/
 *.log
 groq_key.py
 data/
+auth_key.py

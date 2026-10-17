@@ -196,7 +196,7 @@ if __name__ == "__main__":
 
             importance = evaluer_importance(msg, texte)
             memoire.ajouter("toi", msg, importance)
-            memoire.ajouter("alice", texte, importance)
+            memoire.ajouter(config.ENTITE, texte, importance)
             print(f"   [importance évaluée : {importance}]")
         except Exception as e:
             print(f"[erreur] {e}")

@@ -123,6 +123,7 @@ partagent le même backend LLM (Ollama ou Groq).
 - Contexte de naissance précis de chacune (pour qu'elles divergent).
 - Type de dialogue entre elles (bouton manuel prévu).
 - Comment un résumé de soi sera réinjecté (priorité 1).
+Bibliothèque personnelle. Donner aux entités l'accès aux textes de Krieg Senki. Lecture progressive, journal de lecture séparé, autorisation de critique et d'ennui. À faire après le dialogue inter-entités et l'auto-modification de l'identité. Chantier d'un week-end. Décision à prendre : les entités savent-elles que Keogo est l'auteur ?
 
 ---
 

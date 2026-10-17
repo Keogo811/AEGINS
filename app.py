@@ -1,10 +1,37 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, Response
+from functools import wraps
 import memoire
 import alice
 import llm
 import config
 
 app = Flask(__name__)
+
+from auth_key import AUTH_USER, AUTH_PASSWORD
+
+def auth_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        auth = request.authorization
+        if not auth or auth.username != AUTH_USER or auth.password != AUTH_PASSWORD:
+            return Response(
+                "Authentification requise.",
+                401,
+                {"WWW-Authenticate": 'Basic realm="AEGINS"'}
+            )
+        return f(*args, **kwargs)
+    return decorated
+
+
+@app.before_request
+def verifier_auth():
+    auth = request.authorization
+    if not auth or auth.username != AUTH_USER or auth.password != AUTH_PASSWORD:
+        return Response(
+            "Authentification requise.",
+            401,
+            {"WWW-Authenticate": 'Basic realm="AEGINS"'}
+        )
 
 memoire.initialiser()
 
@@ -34,7 +61,7 @@ def parler():
 
     importance = alice.evaluer_importance(msg, texte)
     memoire.ajouter("toi", msg, importance)
-    memoire.ajouter("alice", texte, importance)
+    memoire.ajouter(config.ENTITE, texte, importance)
 
     return jsonify({
         "reponse": texte,
