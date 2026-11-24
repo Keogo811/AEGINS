@@ -1,5 +1,5 @@
 # rag_memory.py — Couche 4 : RAG borné sur le journal intime
-# Arc 13.2 : Implémentation de l'indexation.
+# Arc 13.3 : Implémentation du retrieve avec garde-fous.
 
 import os
 import chromadb
@@ -75,9 +75,57 @@ def index_journal_file(file_path: str, entity_name: str) -> int:
     return len(chunks)
 
 
-# --- Les signatures suivantes restent vides pour l'instant ---
 def retrieve(query: str, entity_name: str, top_k: int = TOP_K) -> list[dict]:
-    raise NotImplementedError
+    """
+    Cherche les fragments de journal les plus proches sémantiquement de `query`.
+    Applique : seuil de similarité et cap top_k.
+    Fail-safe : retourne [] en cas d'erreur (Ollama down, collection vide).
+    """
+    try:
+        collection = get_collection(entity_name)
+        
+        # Si la collection est vide, on ne fait rien
+        if collection.count() == 0:
+            return []
+
+        # 1. Vectoriser la requête
+        query_embedding = embed(query)
+
+        # 2. Interroger ChromaDB (on demande top_k résultats)
+        results = collection.query(
+            query_embeddings=[query_embedding],
+            n_results=top_k,
+            include=["documents", "metadatas", "distances"]
+        )
+
+        echoes = []
+        
+        # ChromaDB renvoie des listes de listes (car on peut requêter plusieurs vecteurs d'un coup)
+        # On prend l'index 0 car on n'a fait qu'une seule requête.
+        if not results["documents"] or not results["documents"][0]:
+            return []
+
+        for i in range(len(results["documents"][0])):
+            # ChromaDB renvoie une distance. Plus la distance est petite, plus c'est proche.
+            # On convertit la distance en un score de similarité entre 0 et 1 (approximation)
+            distance = results["distances"][0][i]
+            similarity = 1.0 - distance
+
+            # 3. Garde-fou : Seuil de similarité
+            if similarity >= SIMILARITY_THRESHOLD:
+                echoes.append({
+                    "text": results["documents"][0][i],
+                    "source": results["metadatas"][0][i]["source"],
+                    "score": round(similarity, 3)
+                })
+                
+        return echoes
+
+    except Exception as e:
+        print(f"[RAG Fail-safe] Erreur lors du retrieve : {e}")
+        return []
+
 
 def format_echoes_for_prompt(echoes: list[dict]) -> str:
+    """Signature vide pour l'instant (Arc 13.4)."""
     raise NotImplementedError
