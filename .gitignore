@@ -7,3 +7,4 @@ venv/
 groq_key.py
 data/
 auth_key.py
+chroma_db/
