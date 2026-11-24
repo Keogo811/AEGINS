@@ -5,6 +5,7 @@ import memoire
 import journal
 import soi
 import config
+import rag_memory  # <-- NOUVEAU : Import de la couche 4
 
 NB_SOUVENIRS = 20  # valeur par défaut, remplacée dynamiquement ci-dessous
 
@@ -111,9 +112,22 @@ def construire_historique(n=None):
 
 
 def demander_a_alice(message, historique):
-    messages = [{"role": "system", "content": construire_prompt_systeme()}]
+    # 1. Construction du prompt système de base (identité + résumé)
+    prompt_systeme = construire_prompt_systeme()
+    
+    # 2. Couche 4 : RAG (Échos du journal)
+    echoes = rag_memory.retrieve(message, config.ENTITE)
+    echoes_block = rag_memory.format_echoes_for_prompt(echoes)
+    if echoes_block:
+        prompt_systeme += "\n\n" + echoes_block + "\n"
+        print(f"[RAG] {len(echoes)} écho(s) trouvé(s).", flush=True) # Debug temporaire
+        
+    # 3. Assemblage final
+    messages = [{"role": "system", "content": prompt_systeme}]
     messages.extend(historique)
     messages.append({"role": "user", "content": message})
+    
+    # 4. Appel au LLM
     contenu, pensee = llm.appeler_llm(messages, modele_principal=True)
     return contenu, pensee
 
@@ -151,6 +165,8 @@ def ecrire_journal_du_jour():
         if texte:
             journal.ecrire(texte)
             print("\n[Ta fille a écrit dans son journal.]")
+            # Optionnel : on pourrait ré-indexer le journal ici pour le RAG
+            # rag_memory.index_journal_file(journal.chemin_du_journal(), config.ENTITE)
     except Exception as e:
         print(f"[journal non écrit : {e}]")
 
